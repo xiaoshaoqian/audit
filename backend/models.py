@@ -20,6 +20,12 @@ class IssueType(str, Enum):
     EXPRESSION_ISSUE = "表述问题"
 
 
+class SegmentType(str, Enum):
+    KNOWLEDGE = "knowledge"  # 知识点
+    EXAMPLE = "example"      # 例题
+    EXERCISE = "exercise"    # 训练题
+
+
 class PageRange(BaseModel):
     """页面范围"""
     page: int
@@ -31,7 +37,9 @@ class Segment(BaseModel):
     """分割区块"""
     id: int
     name: str
+    type: SegmentType = SegmentType.EXERCISE
     pages: List[PageRange]
+
 
 
 class Issue(BaseModel):
@@ -69,6 +77,7 @@ class DocumentInfo(BaseModel):
 class CreateSegmentRequest(BaseModel):
     """创建分割请求"""
     name: str
+    type: SegmentType = SegmentType.EXERCISE
     pages: List[Dict[str, Any]]
 
 

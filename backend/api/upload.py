@@ -15,6 +15,8 @@ from models import DocumentInfo
 router = APIRouter(prefix="/api/upload", tags=["upload"])
 
 
+from services.doc_store import doc_store
+
 @router.post("/", response_model=DocumentInfo)
 async def upload_document(file: UploadFile = File(...)):
     """
@@ -47,7 +49,7 @@ async def upload_document(file: UploadFile = File(...)):
         result = converter.convert(str(file_path))
         print(f"[转换] 完成! 页数: {result['page_count']}")
         
-        return DocumentInfo(
+        info = DocumentInfo(
             doc_id=doc_id,
             filename=file.filename,
             page_count=result["page_count"],
@@ -55,6 +57,11 @@ async def upload_document(file: UploadFile = File(...)):
             image_paths=result["image_paths"],
             thumbnails=result["thumbnails"]
         )
+        
+        # Save to persistent store
+        doc_store.add_document(info.model_dump())
+        
+        return info
     except Exception as e:
         print(f"[错误] 转换失败: {str(e)}")
         print(traceback.format_exc())
@@ -62,12 +69,41 @@ async def upload_document(file: UploadFile = File(...)):
         shutil.rmtree(upload_dir, ignore_errors=True)
         raise HTTPException(status_code=500, detail=f"文档转换失败: {str(e)}")
 
+@router.get("/list", response_model=list[DocumentInfo])
+async def list_documents():
+    """
+    获取所有文档列表
+    """
+    docs = doc_store.load_documents()
+    return [DocumentInfo(**d) for d in docs]
+
+@router.delete("/{doc_id}")
+async def delete_document(doc_id: str):
+    """
+    删除文档及其相关文件
+    """
+    # Remove from index
+    doc_store.remove_document(doc_id)
+    
+    # Remove files
+    for dir_path in [settings.UPLOAD_DIR, settings.IMAGES_DIR, settings.SPLITS_DIR, settings.RESULTS_DIR]:
+        target = Path(dir_path) / doc_id
+        if target.exists():
+            shutil.rmtree(target, ignore_errors=True)
+            
+    return {"status": "ok"}
 
 @router.get("/{doc_id}/info", response_model=DocumentInfo)
 async def get_document_info(doc_id: str):
     """
     获取文档信息
     """
+    # Try to get from store first (faster)
+    stored = doc_store.get_document(doc_id)
+    if stored:
+        return DocumentInfo(**stored)
+
+    # Fallback to file system check (existing logic)
     images_dir = Path(settings.IMAGES_DIR) / doc_id
     if not images_dir.exists():
         raise HTTPException(status_code=404, detail="文档不存在")
@@ -81,7 +117,7 @@ async def get_document_info(doc_id: str):
     docx_files = list(upload_dir.glob("*.docx"))
     filename = docx_files[0].name if docx_files else "unknown.docx"
     
-    return DocumentInfo(
+    info = DocumentInfo(
         doc_id=doc_id,
         filename=filename,
         page_count=len(image_paths),
@@ -89,3 +125,8 @@ async def get_document_info(doc_id: str):
         image_paths=[str(p) for p in image_paths],
         thumbnails=[str(p) for p in thumbnails]
     )
+    
+    # Sync back to store if missing
+    doc_store.add_document(info.model_dump())
+    
+    return info

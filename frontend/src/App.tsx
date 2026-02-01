@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Layout } from 'antd'
 import DocumentListPage from './pages/DocumentListPage'
-import SplitPage from './pages/SplitPage'
-import ReviewPage from './pages/ReviewPage'
+import AuditReviewPage from './pages/AuditReviewPage'
 
 const { Header, Content } = Layout
 
@@ -23,8 +22,7 @@ function App() {
             <Content style={{ padding: '16px', background: '#f0f2f5' }}>
                 <Routes>
                     <Route path="/" element={<DocumentListPage />} />
-                    <Route path="/split/:docId" element={<SplitPage />} />
-                    <Route path="/review/:docId" element={<ReviewPage />} />
+                    <Route path="/review/:docId" element={<AuditReviewPage />} />
                 </Routes>
             </Content>
         </Layout>

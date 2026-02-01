@@ -41,27 +41,50 @@ async def start_audit(doc_id: str, request: AuditRequest):
     if not splits:
         raise HTTPException(status_code=400, detail="请先创建分割区块")
     
+    # 加载现有结果，用于增量更新
+    existing_results = load_results(doc_id)
+    
     # 筛选要审核的区块
     if request.segment_ids:
         segments_to_audit = [s for s in splits if s["id"] in request.segment_ids]
+        # 增量模式：保留不需要重新审核的区块结果
+        kept_segments = [s for s in existing_results.get("segments", []) if s["segment_id"] not in request.segment_ids]
+        kept_issues = [i for i in existing_results.get("issues", []) if i["segment_id"] not in request.segment_ids]
     else:
+        # 全量模式
         segments_to_audit = splits
+        kept_segments = []
+        kept_issues = []
     
     if not segments_to_audit:
         raise HTTPException(status_code=400, detail="没有找到要审核的区块")
     
+    # 计算起始Issue ID
+    issue_id_counter = 1
+    if kept_issues:
+        issue_id_counter = max(i["id"] for i in kept_issues) + 1
+
     # 开始审稿
     auditor = AuditService()
-    all_issues = []
-    results = {"segments": [], "issues": []}
-    issue_id_counter = 1
+    new_issues = []
+    results = {"segments": kept_segments, "issues": kept_issues}
     
     for segment in segments_to_audit:
-        # 生成拼接图片
-        image_path = splitter.create_segment_image(segment)
+        # 生成拼接图片 (使用网格辅助版进行AI识别)
+        # 获取 padded 后的图片路径，以及原始尺寸
+        image_path, orig_w, orig_h = splitter.create_segment_image_with_grid(segment)
+        
+        # 获取区块类型
+        segment_type = segment.get("type", "exercise")
         
         # 调用AI审稿
-        audit_result = auditor.audit_segment(image_path, segment["name"])
+        # 传入 original_size=(orig_w, orig_h) 以便还原坐标
+        audit_result = auditor.audit_segment(
+            image_path, 
+            segment["name"], 
+            segment_type, 
+            original_size=(orig_w, orig_h)
+        )
         
         if audit_result["success"]:
             result_data = audit_result["result"]
@@ -76,8 +99,9 @@ async def start_audit(doc_id: str, request: AuditRequest):
                 issue["segment_id"] = segment["id"]
                 issue["status"] = "pending"
                 issue_id_counter += 1
-                all_issues.append(issue)
+                new_issues.append(issue)
             
+            # 使用新结果覆盖旧的SegmentMeta
             results["segments"].append({
                 "segment_id": segment["id"],
                 "segment_name": segment["name"],
@@ -92,15 +116,16 @@ async def start_audit(doc_id: str, request: AuditRequest):
                 "error": audit_result.get("error", "未知错误")
             })
     
-    results["issues"] = all_issues
+    # 合并问题列表
+    results["issues"].extend(new_issues)
     save_results(doc_id, results)
     
     return {
         "message": "审稿完成",
-        "total_segments": len(segments_to_audit),
-        "total_issues": len(all_issues),
-        "certain_count": len([i for i in all_issues if i.get("level") == "CERTAIN_ERROR"]),
-        "uncertain_count": len([i for i in all_issues if i.get("level") == "UNCERTAIN"])
+        "total_segments": len(results["segments"]),
+        "total_issues": len(results["issues"]),
+        "certain_count": len([i for i in results["issues"] if i.get("level") == "CERTAIN_ERROR"]),
+        "uncertain_count": len([i for i in results["issues"] if i.get("level") == "UNCERTAIN"])
     }
 
 

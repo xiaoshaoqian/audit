@@ -53,6 +53,7 @@ class Settings(BaseSettings):
     IMAGES_DIR: str = str(BASE_DIR / "data" / "images")
     SPLITS_DIR: str = str(BASE_DIR / "data" / "splits")
     RESULTS_DIR: str = str(BASE_DIR / "data" / "results")
+    DOC_INDEX_PATH: str = str(BASE_DIR / "data" / "documents.json")
     
     # 图片转换配置
     IMAGE_DPI: int = 150

@@ -24,9 +24,12 @@ export interface PageRange {
     to: number;
 }
 
+export type SegmentType = 'knowledge' | 'example' | 'exercise';
+
 export interface Segment {
     id: number;
     name: string;
+    type: SegmentType;
     pages: PageRange[];
 }
 
@@ -75,6 +78,15 @@ export const uploadApi = {
         const response = await api.get<DocumentInfo>(`/upload/${docId}/info`);
         return response.data;
     },
+
+    async getDocuments(): Promise<DocumentInfo[]> {
+        const response = await api.get<DocumentInfo[]>('/upload/list');
+        return response.data;
+    },
+
+    async deleteDocument(docId: string): Promise<void> {
+        await api.delete(`/upload/${docId}`);
+    }
 };
 
 // 分割API
@@ -84,8 +96,13 @@ export const splitApi = {
         return response.data;
     },
 
-    async createSegment(docId: string, name: string, pages: PageRange[]): Promise<Segment> {
-        const response = await api.post<Segment>(`/split/${docId}/segments`, { name, pages });
+    async createSegment(docId: string, name: string, pages: PageRange[], type: SegmentType = 'exercise'): Promise<Segment> {
+        const response = await api.post<Segment>(`/split/${docId}/segments`, { name, pages, type });
+        return response.data;
+    },
+
+    async updateSegment(docId: string, segmentId: number, data: { name?: string, type?: SegmentType, pages?: PageRange[] }): Promise<Segment> {
+        const response = await api.put<Segment>(`/split/${docId}/segments/${segmentId}`, data);
         return response.data;
     },
 

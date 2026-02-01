@@ -2,9 +2,10 @@
 API路由 - 分割管理
 """
 from pathlib import Path
-from typing import List
+from typing import List, Dict, Any
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 
 from config import settings
 from services import ImageSplitter
@@ -29,9 +30,25 @@ async def create_segment(doc_id: str, request: CreateSegmentRequest):
     创建新的分割区块
     """
     splitter = ImageSplitter(doc_id)
-    segment = splitter.add_split(request.name, request.pages)
+    segment = splitter.add_split(request.name, request.pages, request.type)
     return segment
 
+
+class UpdateSegmentRequest(BaseModel):
+    name: str = None
+    type: str = None
+    pages: List[Dict[str, Any]] = None
+
+@router.put("/{doc_id}/segments/{segment_id}", response_model=Segment)
+async def update_segment(doc_id: str, segment_id: int, request: UpdateSegmentRequest):
+    """
+    更新分割区块
+    """
+    splitter = ImageSplitter(doc_id)
+    segment = splitter.update_split(segment_id, request.name, request.type, request.pages)
+    if not segment:
+        raise HTTPException(status_code=404, detail="Segment not found")
+    return segment
 
 @router.delete("/{doc_id}/segments/{segment_id}")
 async def delete_segment(doc_id: str, segment_id: int):
