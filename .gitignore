@@ -23,20 +23,9 @@ frontend/dist/
 frontend/.vite/
 
 # Uploads and generated files
-backend/uploads/
-backend/images/
-backend/splits/
-backend/results/
 
-# Image files
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.bmp
-*.webp
-*.svg
-*.ico
+
+
 
 # IDE
 .vscode/
