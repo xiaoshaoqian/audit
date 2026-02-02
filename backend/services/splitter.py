@@ -3,6 +3,7 @@
 """
 import json
 from pathlib import Path
+from typing import List, Dict
 from PIL import Image, ImageDraw, ImageFont
 
 from config import settings

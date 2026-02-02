@@ -15,7 +15,7 @@ class AuditService:
     """AI审稿服务"""
     
     def __init__(self):
-        self.model = "qwen-vl-max"
+        self.model = "qwen3-vl-plus"
     
     def _encode_image(self, image_path: str) -> str:
         """将图片编码为base64"""
