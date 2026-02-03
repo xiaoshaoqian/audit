@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from config import settings
-from api import upload_router, split_router, audit_router, canvas_router
+from api import upload_router, split_router, audit_router, canvas_router, group_router
 
 
 app = FastAPI(
@@ -30,6 +30,7 @@ app.include_router(upload_router)
 app.include_router(split_router)
 app.include_router(audit_router)
 app.include_router(canvas_router)
+app.include_router(group_router)
 
 # 静态文件服务
 # /files 用来访问生成的文件 (canvas, uploads etc)

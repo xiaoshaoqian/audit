@@ -208,6 +208,35 @@ export const canvasApi = {
             x, y, w, h, label
         });
         return response.data;
+    },
+
+    async saveSlices(canvasId: string, groupName: string, blocks: { y: number, h: number, label: string, type: string }[]): Promise<any> {
+        const response = await api.post('/canvas/save_slices', {
+            canvas_id: canvasId,
+            group_name: groupName,
+            blocks
+        });
+        return response.data;
+    }
+};
+
+export const groupApi = {
+    async listGroups(): Promise<{ name: string, path: string }[]> {
+        const response = await api.get('/group/list');
+        return response.data;
+    },
+
+    async getGroupSlices(groupName: string): Promise<{ filename: string, url: string, label: string, type: string }[]> {
+        const response = await api.get(`/group/${groupName}/slices`);
+        return response.data;
+    },
+
+    async renameSlice(groupName: string, filename: string, newName: string) {
+        return api.post('/group/rename_slice', { group_name: groupName, filename, new_name: newName });
+    },
+
+    async deleteSlice(groupName: string, filename: string) {
+        return api.post('/group/delete_slice', { group_name: groupName, filename });
     }
 };
 

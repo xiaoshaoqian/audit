@@ -23,6 +23,26 @@ class CropRequest(BaseModel):
     h: int
     label: str  # 方便前端传标签，虽然后端暂时可能只负责切图
 
+class SaveSlicesRequest(BaseModel):
+    canvas_id: str
+    group_name: str
+    blocks: List[Dict]
+
+@router.post("/save_slices")
+async def save_slices(request: SaveSlicesRequest):
+    """
+    批量保存切片
+    """
+    try:
+        result = canvas_service.save_group_slices(
+            request.canvas_id,
+            request.group_name,
+            request.blocks
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.post("/stitch")
 async def stitch_documents(request: StitchRequest):
     """

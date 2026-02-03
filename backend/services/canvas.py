@@ -263,3 +263,133 @@ class CanvasService:
         img.save(block_path)
             
         return str(block_path)
+
+    def save_group_slices(self, canvas_id: str, group_name: str, blocks: List[Dict]) -> Dict:
+        """
+        批量保存切片到分组目录
+        blocks: [{ "y": int, "h": int, "label": str, "type": str }]
+        """
+        # 创建分组目录
+        group_dir = settings.BASE_DIR / "data" / "groups" / group_name
+        group_dir.mkdir(parents=True, exist_ok=True)
+        
+        saved_files = []
+        
+        # 为了提高效率并复用逻辑，我们可以循环调用 crop_block 
+        # 但要注意 crop_block 默认保存到 canvas 目录且文件名固定
+        # 这里我们需要保存到 group_dir 且文件名自定义
+        
+        # 1. 加载 Metadata (只加载一次)
+        if canvas_id.endswith(".json"):
+            filename = Path(canvas_id).name
+            base_id = filename.rsplit('.', 1)[0]
+        else:
+            base_id = canvas_id
+            
+        meta_file = self.output_dir / f"{base_id}.json"
+        if not meta_file.exists():
+            raise FileNotFoundError(f"Canvas metadata not found for {base_id}")
+            
+        with open(meta_file, "r") as f:
+            meta = json.load(f)
+            
+        total_width = meta["total_width"]
+        
+        for block in blocks:
+            y = int(block["y"])
+            h = int(block["h"])
+            label = block.get("label", "block")
+            b_type = block.get("type", "unknown")
+            
+            # --- 复用 crop 核心逻辑 (可以抽取为 _crop_image_object 但这里直接写一遍也行，或者从 self.crop_block 改造) ---
+            # 为了避免大量重复代码，建议重构 crop_block 返回 PIL Image 对象，而不是直接保存文件
+            # 但现在且慢修改已有API，我们这里直接复制核心逻辑
+            
+            y_start_req = y
+            y_end_req = y + h
+            
+            target_page = None
+            max_overlap = 0
+            
+            for page in meta["pages"]:
+                p_y1 = page["canvas_y"]
+                p_y2 = p_y1 + page["trim_h"]
+                
+                inter_y1 = max(y_start_req, p_y1)
+                inter_y2 = min(y_end_req, p_y2)
+                
+                if inter_y2 > inter_y1:
+                    overlap = inter_y2 - inter_y1
+                    if overlap > max_overlap:
+                        max_overlap = overlap
+                        target_page = page
+            
+            if not target_page:
+                 img = Image.new('RGB', (total_width, h), (255, 255, 255))
+            else:
+                local_y = y - target_page["canvas_y"]
+                cx = target_page.get("canvas_x_offset", 0)
+                
+                # 默认裁剪全宽 (x=0, w=total_width)
+                # local_x = 0 - cx (可能为负)
+                # orig_x = local_x + trim_x
+                # 我们要裁切的区域在 Page Trim 坐标系下是:
+                # x: [0, total_width] 映射回原图
+                # Trim区域是 [trim_x, trim_x + trim_w]
+                # Page Trimmed Width 是 target_page["trim_w"]
+                # Page Canvas Width 是 target_page["trim_w"]
+                # Canvas Width 是 total_width (可能大于 page trim width)
+                # 
+                # 简单起见，我们只裁切 Page 覆盖的部分，空白补白？
+                # 或者直接裁切 Page 有效区域
+                
+                # 修正：我们只裁切该页的有效内容宽度
+                page_trim_w = target_page["trim_w"]
+                
+                # 计算在原图中的坐标
+                # 只需要裁切 target_page 对应的 trim 区域内的 y 范围
+                # x 方向保留全部 trim 宽度
+                
+                orig_x = target_page["trim_x"]
+                orig_y = local_y + target_page["trim_y"]
+                
+                img_array = np.fromfile(target_page["original_path"], dtype=np.uint8)
+                img_bgr = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+                img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+                pil_img = Image.fromarray(img_rgb)
+                
+                img_w, img_h = pil_img.size
+                crop_box = (
+                    max(0, int(orig_x)),
+                    max(0, int(orig_y)),
+                    min(img_w, int(orig_x + page_trim_w)),
+                    min(img_h, int(orig_y + h))
+                )
+                img = pil_img.crop(crop_box)
+            
+            # --- 保存 ---
+            # 命名格式: {label}_{type}.png (避免非法字符)
+            safe_label = "".join([c for c in label if c.isalnum() or c in (' ', '-', '_')]).strip()
+            if not safe_label:
+                safe_label = f"block_{y}"
+                
+            filename = f"{safe_label}_{b_type}.png"
+            file_path = group_dir / filename
+            img.save(file_path)
+            
+            # 转为 URL
+            # /files/groups/{group_name}/{filename}
+            url = f"/files/groups/{group_name}/{filename}"
+            
+            saved_files.append({
+                "label": label,
+                "type": b_type,
+                "url": url,
+                "path": str(file_path)
+            })
+            
+        return {
+            "group_name": group_name,
+            "count": len(saved_files),
+            "files": saved_files
+        }
