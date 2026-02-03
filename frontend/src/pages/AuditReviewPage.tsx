@@ -201,6 +201,21 @@ export default function AuditReviewPage() {
                                 onChange={key => setSelectedSegment(Number(key))}
                                 items={segments.map(seg => {
                                     const segmentIssues = results?.issues?.filter(i => i.segment_id === seg.id) || []
+                                    // 查找关联的九章结果
+                                    // 这里的 results 是后端 get_results 返回的完整对象，包含 segments 列表
+                                    // @ts-ignore
+                                    const auditSegment = results?.segments?.find((s: any) => String(s.segment_id) === String(seg.id))
+                                    const jiuzhangResult = auditSegment?.jiuzhang_analysis
+
+                                    // 添加调试日志，帮助排查为什么不显示
+                                    console.debug(`Segment ${seg.id} Jiuzhang Data:`, jiuzhangResult)
+
+                                    let jiuzhangContent = null
+                                    // 兼容后端返回结构：有的返回 success=True，有的返回 available=True
+                                    if ((jiuzhangResult?.success || jiuzhangResult?.available) && jiuzhangResult?.data?.result) {
+                                        jiuzhangContent = jiuzhangResult.data.result
+                                    }
+
                                     return {
                                         key: String(seg.id),
                                         label: (
@@ -210,8 +225,8 @@ export default function AuditReviewPage() {
                                             </span>
                                         ),
                                         children: (
-                                            <div style={{ height: 'calc(100vh - 150px)', overflow: 'auto', padding: 16, display: 'flex', justifyContent: 'center' }}>
-                                                <div style={{ position: 'relative', background: '#fff', padding: 4, borderRadius: 4, textAlign: 'center', minHeight: '100%', width: 'fit-content' }}>
+                                            <div style={{ height: 'calc(100vh - 150px)', overflow: 'auto', padding: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                <div style={{ position: 'relative', background: '#fff', padding: 4, borderRadius: 4, textAlign: 'center', width: 'fit-content', marginBottom: 16 }}>
                                                     <div style={{ position: 'relative', display: 'block', lineHeight: 0, width: 'fit-content' }}>
                                                         <img
                                                             src={splitApi.getSegmentImageUrl(docId, seg.id)}
@@ -241,6 +256,15 @@ export default function AuditReviewPage() {
                                                         })}
                                                     </div>
                                                 </div>
+
+                                                {/* 九章解析结果展示 */}
+                                                {jiuzhangContent && (
+                                                    <Card title="💡 九章模型解析 (MathGPT)" style={{ width: '100%', maxWidth: 800, marginTop: 16, textAlign: 'left' }}>
+                                                        <div style={{ whiteSpace: 'pre-wrap', fontFamily: 'sans-serif', lineHeight: 1.6 }}>
+                                                            {jiuzhangContent}
+                                                        </div>
+                                                    </Card>
+                                                )}
                                             </div>
                                         )
                                     }

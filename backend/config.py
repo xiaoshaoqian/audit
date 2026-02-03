@@ -58,6 +58,19 @@ class Settings(BaseSettings):
     # 图片转换配置
     IMAGE_DPI: int = 150
     MAX_PAGES_PER_SEGMENT: int = 5
+
+    # 九章API配置
+    JIUZHANG_API_URL: str = "http://openai.100tal.com/ai/backend/answer/http"
+    JIUZHANG_ACCESS_KEY: str = os.getenv("JIUZHANG_ACCESS_KEY", "")
+    JIUZHANG_SECRET_KEY: str = os.getenv("JIUZHANG_SECRET_KEY", "")
+
+    # 阿里云OSS配置
+    OSS_ACCESS_KEY_ID: str = os.getenv("OSS_ACCESS_KEY_ID", "")
+    OSS_ACCESS_KEY_SECRET: str = os.getenv("OSS_ACCESS_KEY_SECRET", "")
+    OSS_ENDPOINT: str = os.getenv("OSS_ENDPOINT", "")
+    OSS_BUCKET_NAME: str = os.getenv("OSS_BUCKET_NAME", "")
+    
+
     
     # 服务器配置
     HOST: str = "0.0.0.0"

@@ -119,11 +119,39 @@ class AuditService:
 {check_items}
 {common_requirements}"""
     
+
+    
+    def audit_with_jiuzhang(self, image_path: str, segment_name: str) -> Dict:
+        """调用九章进行额外审题"""
+        from services.jiuzhang import JiuzhangService
+        
+        try:
+            jiuzhang = JiuzhangService()
+            result = jiuzhang.get_solution(image_path)
+            
+            if result.get("success"):
+                return {
+                    "available": True,
+                    "data": result.get("data", {})
+                }
+            else:
+                return {
+                    "available": False,
+                    "error": result.get("error")
+                }
+        except Exception as e:
+            return {
+                "available": False,
+                "error": str(e)
+            }
+
     def audit_segment(self, image_path: str, segment_name: str, segment_type: str = "exercise", original_size: tuple[int, int] = None) -> Dict:
         """
         审核单个分割区块
         original_size: (width, height) 原始图片尺寸，用于坐标还原
         """
+        
+        # 1. 基础审稿 (Qwen)
         messages = [
             {
                 "role": "user",
@@ -133,6 +161,8 @@ class AuditService:
                 ]
             }
         ]
+        
+        audit_result = {}
         
         try:
             response = MultiModalConversation.call(
@@ -151,69 +181,85 @@ class AuditService:
                     if start >= 0 and end > start:
                         result = json.loads(content[start:end])
                         
-                        # 解析坐标信息
+                        # 解析坐标信息 (保持原有逻辑)
                         if "issues" in result:
                             for issue in result["issues"]:
                                 if "box" in issue and isinstance(issue["box"], str):
                                     coords = self._parse_box(issue["box"])
                                     if coords:
-                                        # 如果有原始尺寸，进行坐标变换 (Square Padding 还原)
+                                        # 坐标还原逻辑
                                         if original_size:
                                             orig_w, orig_h = original_size
                                             max_dim = max(orig_w, orig_h)
-                                            
-                                            # 原理: 
-                                            # LLM输出的 x 是基于 max_dim 的 0-1000
-                                            # 真实像素 x_px = (coords["x1"] / 1000) * max_dim
-                                            # 映射回原图 x_norm = (x_px / orig_w) * 1000
-                                            # 合并公式: x_new = coords["x1"] * (max_dim / orig_w)
-                                            
                                             scale_x = max_dim / orig_w
                                             scale_y = max_dim / orig_h
-                                            
-                                            # Y轴校准偏移量 (0-1000 scale)
-                                            # 用户反馈坐标整体偏下，进行微调上移
                                             Y_BIAS = -15
-                                            
                                             coords["x1"] = int(coords["x1"] * scale_x)
                                             coords["x2"] = int(coords["x2"] * scale_x)
                                             coords["y1"] = int(coords["y1"] * scale_y) + Y_BIAS
                                             coords["y2"] = int(coords["y2"] * scale_y) + Y_BIAS
-                                            
-                                            # 边界保护
                                             coords["y1"] = max(0, coords["y1"])
                                             coords["y2"] = max(0, coords["y2"])
                                             
                                         issue["coordinates"] = coords
                         
-                        return {
+                        audit_result = {
                             "success": True,
                             "segment_name": segment_name,
                             "image_path": image_path,
                             "result": result
                         }
+                    else:
+                        raise json.JSONDecodeError("No JSON found", content, 0)
                 except json.JSONDecodeError:
-                    pass
-                
-                # 如果无法解析JSON，返回原始文本
-                return {
-                    "success": True,
-                    "segment_name": segment_name,
-                    "image_path": image_path,
-                    "result": {"raw_response": content, "issues": []}
-                }
+                    audit_result = {
+                        "success": True,
+                        "segment_name": segment_name,
+                        "image_path": image_path,
+                        "result": {"raw_response": content, "issues": []}
+                    }
             else:
-                return {
+                audit_result = {
                     "success": False,
                     "segment_name": segment_name,
                     "error": f"API错误: {response.code} - {response.message}"
                 }
         except Exception as e:
-            return {
+            audit_result = {
                 "success": False,
                 "segment_name": segment_name,
                 "error": str(e)
             }
+            
+        # 2. 如果是训练题，额外调用九章
+        print(f"[DEBUG] Segment Type: {segment_type}, Basic Audit Success: {audit_result.get('success')}")
+        if not audit_result.get("success"):
+            print(f"[DEBUG] Basic Audit Error: {audit_result.get('error')}")
+
+        if segment_type == "exercise":
+            print("[DEBUG] Calling Jiuzhang Service...")
+            jiuzhang_res = self.audit_with_jiuzhang(image_path, segment_name)
+            
+            # 使用 json.dumps 打印中文，避免 escape 字符或乱码
+            import json
+            print(f"[DEBUG] Jiuzhang Result: {json.dumps(jiuzhang_res, ensure_ascii=False, indent=2)}")
+            
+            # 如果之前的审稿失败了，但九章成功了，我们可以视为整体“部分成功”或者至少返回九章结果
+            # 这里策略：即使Qwen失败，也把九章结果放进去。如果Qwen失败，result结构可能不存在。
+            
+            if "result" not in audit_result:
+                 audit_result["result"] = {"issues": []}
+            
+            audit_result["result"]["jiuzhang_analysis"] = jiuzhang_res
+            
+            # 如果九章成功，我们强制设置 success = True，以便前端能展示
+            if jiuzhang_res.get("available"):
+                audit_result["success"] = True
+                if "error" in audit_result:
+                    # 将Qwen的错误移动到 result 中作为警告，或者直接清除 error 避免前端报错
+                    audit_result["result"]["qwen_error"] = audit_result.pop("error")
+                
+        return audit_result
     
     def audit_multiple_images(self, image_paths: List[str], segment_name: str, segment_type: str = "exercise") -> Dict:
         """

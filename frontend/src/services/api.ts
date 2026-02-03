@@ -61,6 +61,14 @@ export interface AuditResults {
         error?: string;
         certain_count?: number;
         uncertain_count?: number;
+        jiuzhang_analysis?: {
+            available?: boolean;
+            success?: boolean;
+            data?: {
+                result?: string;
+            };
+            error?: string;
+        };
     }>;
     issues: Issue[];
 }

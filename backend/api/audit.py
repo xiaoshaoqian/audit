@@ -107,7 +107,8 @@ async def start_audit(doc_id: str, request: AuditRequest):
                 "segment_name": segment["name"],
                 "summary": result_data.get("summary", ""),
                 "certain_count": len(classified["certain"]),
-                "uncertain_count": len(classified["uncertain"])
+                "uncertain_count": len(classified["uncertain"]),
+                "jiuzhang_analysis": result_data.get("jiuzhang_analysis") # 保存九章结果
             })
         else:
             results["segments"].append({
