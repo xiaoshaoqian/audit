@@ -13,6 +13,10 @@ export default defineConfig({
             '/static': {
                 target: 'http://localhost:8001',
                 changeOrigin: true
+            },
+            '/files': {
+                target: 'http://localhost:8001',
+                changeOrigin: true
             }
         }
     }

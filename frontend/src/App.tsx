@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Layout } from 'antd'
 import DocumentListPage from './pages/DocumentListPage'
 import AuditReviewPage from './pages/AuditReviewPage'
+import WorkbenchPage from './pages/WorkbenchPage'
 
 const { Header, Content } = Layout
 
@@ -14,14 +15,19 @@ function App() {
                 alignItems: 'center',
                 padding: '0 24px'
             }}>
-                <h1 style={{ color: 'white', margin: 0, fontSize: '20px', cursor: 'pointer' }}
+                <h1 style={{ color: 'white', margin: 0, fontSize: '20px', cursor: 'pointer', marginRight: '40px' }}
                     onClick={() => window.location.href = '/'}>
                     📚 AI辅助物理教辅审稿系统
                 </h1>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <a href="/" style={{ color: 'white', fontSize: '16px' }}>首页</a>
+                    <a href="/workbench" style={{ color: 'white', fontSize: '16px' }}>✂️ 审稿工作台</a>
+                </div>
             </Header>
             <Content style={{ padding: '16px', background: '#f0f2f5' }}>
                 <Routes>
                     <Route path="/" element={<DocumentListPage />} />
+                    <Route path="/workbench" element={<WorkbenchPage />} />
                     <Route path="/review/:docId" element={<AuditReviewPage />} />
                 </Routes>
             </Content>

@@ -42,6 +42,9 @@ def find_poppler_path():
 
 
 class Settings(BaseSettings):
+    # 基础路径
+    BASE_DIR: Path = BASE_DIR
+
     # 通义千问API配置
     DASHSCOPE_API_KEY: str = os.getenv("DASHSCOPE_API_KEY", "your-api-key-here")
     

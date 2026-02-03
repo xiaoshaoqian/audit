@@ -162,4 +162,53 @@ export const auditApi = {
     },
 };
 
+// 画布API
+export interface CanvasStitchResult {
+    canvas_id: string;
+    total_width: number;
+    total_height: number;
+    pages: Array<{
+        doc_id: string;
+        original_path: string;
+        trim_x: number;
+        trim_y: number;
+        trim_w: number;
+        trim_h: number;
+        canvas_y: number;
+    }>;
+    chunks: Array<{
+        index: number;
+        url: string;
+        local_path: string;
+        height: number;
+        start_y: number;
+    }>;
+}
+
+export interface CanvasCropResult {
+    success: boolean;
+    url: string;
+    local_path: string;
+    label: string;
+}
+
+export const canvasApi = {
+    async stitch(docIds: string[], trimTop: number = 0.12, trimBottom: number = 0.10): Promise<CanvasStitchResult> {
+        const response = await api.post<CanvasStitchResult>('/canvas/stitch', {
+            doc_ids: docIds,
+            trim_top: trimTop,
+            trim_bottom: trimBottom
+        });
+        return response.data;
+    },
+
+    async crop(canvasPath: string, x: number, y: number, w: number, h: number, label: string): Promise<CanvasCropResult> {
+        const response = await api.post<CanvasCropResult>('/canvas/crop', {
+            canvas_path: canvasPath,
+            x, y, w, h, label
+        });
+        return response.data;
+    }
+};
+
 export default api;

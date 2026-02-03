@@ -14,39 +14,80 @@
 
 ### 1. 安装依赖
 
+#### macOS / Linux
 ```bash
-# 后端（使用虚拟环境）
+# 1. 后端依赖
 cd backend
-python -m venv venv
-# Windows激活
-venv\Scripts\activate
-# Linux/Mac激活
-# source venv/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 
-# 前端
-cd frontend
+# 2. 前端依赖
+cd ../frontend
+npm install
+```
+
+#### Windows
+```cmd
+REM 1. 后端依赖
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+
+REM 2. 前端依赖
+cd ..\frontend
 npm install
 ```
 
 ### 2. 配置API密钥
 
-编辑 `backend/config.py`，填入通义千问API密钥。
+请在 `backend` 目录下创建 `.env` 文件（可复制 `.env` 模板），并填入以下配置：
+
+```properties
+# 通义千问API密钥（必填）
+DASHSCOPE_API_KEY=your_key_here
+
+# 九章API配置（可选，用于题目搜索）
+JIUZHANG_ACCESS_KEY=your_access_key
+JIUZHANG_SECRET_KEY=your_secret_key
+
+# 阿里云OSS配置（可选，用于图片上传）
+OSS_ACCESS_KEY_ID=your_oss_id
+OSS_ACCESS_KEY_SECRET=your_oss_secret
+OSS_ENDPOINT=oss-cn-beijing.aliyuncs.com
+OSS_BUCKET_NAME=your_bucket_name
+```
 
 ### 3. 启动服务
 
+> 需要打开两个终端窗口分别运行后端和前端。
+
+#### macOS / Linux
 ```bash
-# 后端（先激活虚拟环境）
+# 终端 1: 后端
 cd backend
-venv\Scripts\activate
+source venv/bin/activate
 python main.py
 
-# 前端
+# 终端 2: 前端
 cd frontend
 npm run dev
 ```
 
-### 4. 访问
+#### Windows
+```cmd
+REM 终端 1: 后端
+cd backend
+venv\Scripts\activate
+python main.py
+
+REM 终端 2: 前端
+cd frontend
+npm run dev
+```
+
+### 5. 访问
 
 打开浏览器访问 http://localhost:5173
 
