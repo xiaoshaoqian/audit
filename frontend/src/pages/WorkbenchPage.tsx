@@ -68,6 +68,22 @@ const WorkbenchPage: React.FC = () => {
     const loadDocuments = async () => {
         try {
             const docs = await uploadApi.getDocuments();
+
+            // Sort by filename number (Same as DocumentListPage)
+            docs.sort((a, b) => {
+                const getNum = (name: string) => {
+                    const match = name.match(/^(\d+)/);
+                    return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
+                };
+                const numA = getNum(a.filename);
+                const numB = getNum(b.filename);
+
+                if (numA !== numB) {
+                    return numA - numB;
+                }
+                return a.filename.localeCompare(b.filename, 'zh-CN');
+            });
+
             setDocuments(docs);
         } catch (error) {
             message.error('加载文档列表失败');

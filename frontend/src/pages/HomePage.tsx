@@ -47,7 +47,8 @@ const HomePage: React.FC = () => {
             const list = await groupApi.listGroups();
             setGroups(list);
             if (list.length > 0) {
-                // Optional: Auto-select first group
+                // Auto-select first group
+                setSelectedGroup(list[0].name);
             }
         } catch (error) {
             message.error('加载分组失败');

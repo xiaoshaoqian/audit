@@ -1,5 +1,367 @@
 [
   {
+    "doc_id": "05a80265",
+    "filename": "18 电学重要实验 - 答案.docx",
+    "page_count": 6,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/18 电学重要实验 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/page_0006.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/05a80265/thumbnails/page_0006.png"
+    ],
+    "created_at": "2026-02-04T22:17:15.692382"
+  },
+  {
+    "doc_id": "06876833",
+    "filename": "17 力学重要实验 -答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/17 力学重要实验 -答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/06876833/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:17:10.910127"
+  },
+  {
+    "doc_id": "ae632678",
+    "filename": "16 相对论 宇宙 - 答案.docx",
+    "page_count": 3,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/16 相对论 宇宙 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/page_0003.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/ae632678/thumbnails/page_0003.png"
+    ],
+    "created_at": "2026-02-04T22:17:06.729739"
+  },
+  {
+    "doc_id": "422604e3",
+    "filename": "15 原子结构 原子核 -答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/15 原子结构 原子核 -答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/422604e3/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:17:02.749038"
+  },
+  {
+    "doc_id": "64d7a216",
+    "filename": "14 光学 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/14 光学 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/64d7a216/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:58.203292"
+  },
+  {
+    "doc_id": "9e88dffe",
+    "filename": "12 电磁科技 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/12 电磁科技 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9e88dffe/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:53.789925"
+  },
+  {
+    "doc_id": "7e8800f0",
+    "filename": "13 热学 - 答案.docx",
+    "page_count": 3,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/13 热学 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/page_0003.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/7e8800f0/thumbnails/page_0003.png"
+    ],
+    "created_at": "2026-02-04T22:16:49.557692"
+  },
+  {
+    "doc_id": "e0d59f76",
+    "filename": "10 交流电路 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/10 交流电路 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/e0d59f76/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:45.427427"
+  },
+  {
+    "doc_id": "9d8c5289",
+    "filename": "11 电磁感应 - 答案.docx",
+    "page_count": 6,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/11 电磁感应 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/page_0006.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/9d8c5289/thumbnails/page_0006.png"
+    ],
+    "created_at": "2026-02-04T22:16:41.056764"
+  },
+  {
+    "doc_id": "bf2f2edf",
+    "filename": "9 直流电路 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/9 直流电路 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/bf2f2edf/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:35.964055"
+  },
+  {
+    "doc_id": "af996840",
+    "filename": "8 振动与波 - 答案.docx",
+    "page_count": 3,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/8 振动与波 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/page_0003.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/af996840/thumbnails/page_0003.png"
+    ],
+    "created_at": "2026-02-04T22:16:31.644133"
+  },
+  {
+    "doc_id": "15e080d0",
+    "filename": "7 场 - 答案.docx",
+    "page_count": 2,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/15e080d0/7 场 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/15e080d0/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/15e080d0/page_0002.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/15e080d0/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/15e080d0/thumbnails/page_0002.png"
+    ],
+    "created_at": "2026-02-04T22:16:27.437858"
+  },
+  {
+    "doc_id": "6b31dd20",
+    "filename": "5 动能定理和动量定理 - 答案.docx",
+    "page_count": 6,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/5 动能定理和动量定理 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/page_0006.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/6b31dd20/thumbnails/page_0006.png"
+    ],
+    "created_at": "2026-02-04T22:16:26.053171"
+  },
+  {
+    "doc_id": "a87bbeae",
+    "filename": "6 机械能守恒和动量守恒 - 答案.docx",
+    "page_count": 8,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/6 机械能守恒和动量守恒 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0006.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0007.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/page_0008.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0006.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0007.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/a87bbeae/thumbnails/page_0008.png"
+    ],
+    "created_at": "2026-02-04T22:16:21.235354"
+  },
+  {
+    "doc_id": "1c74b1cf",
+    "filename": "4 圆周运动 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/4 圆周运动 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/1c74b1cf/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:15.953717"
+  },
+  {
+    "doc_id": "77207dc3",
+    "filename": "3 抛体运动 - 答案.docx",
+    "page_count": 4,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/3 抛体运动 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/page_0004.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/77207dc3/thumbnails/page_0004.png"
+    ],
+    "created_at": "2026-02-04T22:16:11.375724"
+  },
+  {
+    "doc_id": "da7ccf8a",
+    "filename": "2 直线运动与动力学 - 答案.docx",
+    "page_count": 6,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/2 直线运动与动力学 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/page_0006.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/da7ccf8a/thumbnails/page_0006.png"
+    ],
+    "created_at": "2026-02-04T22:16:07.297168"
+  },
+  {
+    "doc_id": "c54b1792",
+    "filename": "1 直线运动与静力学 - 答案.docx",
+    "page_count": 7,
+    "pdf_path": "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/1 直线运动与静力学 - 答案.pdf",
+    "image_paths": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0006.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/page_0007.png"
+    ],
+    "thumbnails": [
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0001.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0002.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0003.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0004.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0005.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0006.png",
+      "/Users/xiaoshaoqian/Code/github/audit/backend/data/images/c54b1792/thumbnails/page_0007.png"
+    ],
+    "created_at": "2026-02-04T22:16:03.095382"
+  },
+  {
     "doc_id": "0215d04e",
     "filename": "18 电学重要实验.docx",
     "page_count": 17,
