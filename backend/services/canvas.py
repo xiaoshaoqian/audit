@@ -193,7 +193,7 @@ class CanvasService:
         
         return image[y_min:y_max, x_min:x_max], (x_min, y_min, w_img, y_max - y_min)
 
-    def stitch_documents(self, doc_ids: List[str], trim_top: float = 0.12, trim_bottom: float = 0.10) -> Dict:
+    def stitch_documents(self, doc_ids: List[str], trim_top: float = 0.12, trim_bottom: float = 0.10, group_name: str = "") -> Dict:
         """
         ?()
         """
@@ -331,7 +331,7 @@ class CanvasService:
             "total_height": total_height,
             "pages": page_info_list,
             "chunks": chunks,
-            "group_name": "",
+            "group_name": group_name,
             "cut_lines": [],
             "blocks": []
         }
@@ -345,7 +345,7 @@ class CanvasService:
             trim_top,
             trim_bottom,
             status="stitched",
-            group_name="",
+            group_name=group_name,
             cut_lines=[],
             blocks=[]
         )

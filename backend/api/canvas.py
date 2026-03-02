@@ -14,6 +14,7 @@ class StitchRequest(BaseModel):
     doc_ids: List[str]
     trim_top: float = 0.12     # 默认顶部裁切比例
     trim_bottom: float = 0.10  # 默认底部裁切比例
+    group_name: str = ""
 
 class CropRequest(BaseModel):
     canvas_path: str
@@ -57,7 +58,8 @@ async def stitch_documents(request: StitchRequest):
         result = canvas_service.stitch_documents(
             request.doc_ids,
             trim_top=request.trim_top,
-            trim_bottom=request.trim_bottom
+            trim_bottom=request.trim_bottom,
+            group_name=request.group_name
         )
         return result
     except Exception as e:

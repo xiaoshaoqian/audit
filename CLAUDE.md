@@ -22,7 +22,9 @@ cd frontend
 npm install
 ```
 
-**External dependency**: Poppler must be installed for DOCX→PDF conversion. On Windows, install to `C:\poppler\` or `C:\poppler-25.12.0\`. On macOS: `brew install poppler`.
+**External dependencies**:
+- **Poppler** — required for PDF→PNG conversion. On macOS: `brew install poppler`. On Windows: install to `C:\poppler\` or `C:\poppler-25.12.0\`.
+- **LibreOffice** — required for DOCX→PDF conversion. Must be installed and accessible via `soffice` CLI.
 
 ### Running the Application
 ```bash
@@ -39,6 +41,16 @@ Access at http://localhost:5173. API docs at http://localhost:8001/docs.
 ```bash
 cd frontend && npm run build
 ```
+
+### Testing
+
+There is no formal test framework (no pytest/Jest). Test manually via the UI or Swagger at `/docs`.
+
+## Conventions
+
+- **Chinese-first codebase**: comments, UI text, commit messages, and some variable names are in Chinese
+- **No database**: all persistence is file-based (JSON + binary images under `backend/data/`)
+- **Frontend state**: uses local `useState` hooks per page; no Redux or global state management
 
 ## Architecture
 

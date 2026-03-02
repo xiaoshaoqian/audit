@@ -3,7 +3,9 @@
     "allow": [
       "WebFetch(domain:minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com)",
       "Bash(pip show debugpy)",
-      "Bash(pip install debugpy)"
+      "Bash(pip install debugpy)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(chmod +x node_modules/.bin/tsc)"
     ]
   }
 }

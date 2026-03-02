@@ -21,7 +21,9 @@ import {
     DeleteOutlined,
     ZoomInOutlined,
     ZoomOutOutlined,
-    UploadOutlined
+    UploadOutlined,
+    SortAscendingOutlined,
+    SortDescendingOutlined
 } from '@ant-design/icons';
 import { uploadApi, canvasApi, DocumentInfo, CanvasHistoryItem, CanvasStitchResult } from '../services/api';
 
@@ -78,6 +80,7 @@ const WorkbenchPage: React.FC = () => {
     const [groupName, setGroupName] = useState('');
     const [hoverBlockId, setHoverBlockId] = useState<string | null>(null);
     const [leftPanelView, setLeftPanelView] = useState<'documents' | 'history'>('documents');
+    const [stitchOrder, setStitchOrder] = useState<'asc' | 'desc'>('asc');
 
     // Polyline drawing state
     const [drawingPoints, setDrawingPoints] = useState<Point[] | null>(null);
@@ -125,14 +128,17 @@ const WorkbenchPage: React.FC = () => {
         scrollContainerRef.current.scrollTo({ top: Math.max(0, block.y_start * scale - 50), behavior: 'smooth' });
     }, [hoverBlockId, canvas, zoom, blocks]);
 
-    // Auto-save draft on any change
+    // Auto-save draft on cut-line / block changes only.
+    // group_name is NOT included — it is saved only on explicit "开始切片" to avoid
+    // overwriting a finished canvas's group when the user edits the input for the next one.
     useEffect(() => {
         if (!canvas?.canvas_id) return;
         const canvasId = canvas.canvas_id;
+        const savedGroupName = canvas.group_name ?? '';
         if (draftSaveTimer.current) window.clearTimeout(draftSaveTimer.current);
         draftSaveTimer.current = window.setTimeout(() => {
             void canvasApi.saveDraft(canvasId, {
-                group_name: groupName.trim(),
+                group_name: savedGroupName,
                 cut_lines: cutLines.map((l) => ({ id: l.id, points: l.points })),
                 blocks: blocks.map((b) => ({
                     id: b.id,
@@ -145,7 +151,7 @@ const WorkbenchPage: React.FC = () => {
             }).catch(() => {});
         }, 500);
         return () => { if (draftSaveTimer.current) window.clearTimeout(draftSaveTimer.current); };
-    }, [canvas?.canvas_id, groupName, cutLines, blocks]);
+    }, [canvas?.canvas_id, canvas?.group_name, cutLines, blocks]);
 
     const normalizeBlockType = (value: string): 'knowledge' | 'example' | 'answer' => {
         if (value === 'knowledge' || value === 'answer') return value;
@@ -238,7 +244,8 @@ const WorkbenchPage: React.FC = () => {
         if (selectedDocIds.length === 0) { message.warning('请先选择文档'); return; }
         setLoading(true);
         try {
-            const result = await canvasApi.stitch(selectedDocIds, trimTop, trimBottom);
+            const orderedIds = stitchOrder === 'desc' ? [...selectedDocIds].reverse() : selectedDocIds;
+            const result = await canvasApi.stitch(orderedIds, trimTop, trimBottom, groupName.trim());
             setCanvas(result);
             setCutLines([]);
             setBlocks([]);
@@ -361,6 +368,15 @@ const WorkbenchPage: React.FC = () => {
 
             const payload = blocks.map((b) => ({ polygon: b.polygon, label: b.label, type: b.type }));
             const res = await canvasApi.saveSlices(canvas.canvas_id, normalizedGroupName, payload);
+
+            // Clear canvas state so auto-save won't overwrite group_name
+            // when the user changes the input for the next canvas
+            setCanvas(null);
+            setCutLines([]);
+            setBlocks([]);
+            setDrawingPoints(null);
+            setMousePos(null);
+
             setGroupName(normalizedGroupName);
             await loadCanvasHistory();
             const collisionCount = Number(res?.collision_count ?? 0);
@@ -585,6 +601,13 @@ const WorkbenchPage: React.FC = () => {
                             </div>
                             <Button type="primary" icon={<ScissorOutlined />} block onClick={handleStitch} loading={loading}>
                                 拼接选中文档
+                            </Button>
+                            <Button
+                                block
+                                icon={stitchOrder === 'asc' ? <SortAscendingOutlined /> : <SortDescendingOutlined />}
+                                onClick={() => setStitchOrder((prev) => prev === 'asc' ? 'desc' : 'asc')}
+                            >
+                                拼接顺序: {stitchOrder === 'asc' ? '顺序' : '倒序'}
                             </Button>
                         </Space>
                     </div>

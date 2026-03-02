@@ -223,11 +223,12 @@ export interface CanvasHistoryItem {
 }
 
 export const canvasApi = {
-    async stitch(docIds: string[], trimTop: number = 0.12, trimBottom: number = 0.10): Promise<CanvasStitchResult> {
+    async stitch(docIds: string[], trimTop: number = 0.12, trimBottom: number = 0.10, groupName: string = ''): Promise<CanvasStitchResult> {
         const response = await api.post<CanvasStitchResult>('/canvas/stitch', {
             doc_ids: docIds,
             trim_top: trimTop,
-            trim_bottom: trimBottom
+            trim_bottom: trimBottom,
+            group_name: groupName
         });
         return response.data;
     },
