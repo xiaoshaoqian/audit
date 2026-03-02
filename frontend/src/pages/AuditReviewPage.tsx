@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
     Button, List, Tag, Tabs,
     message, Typography, Space, Empty, Badge,
     Descriptions, Layout, Spin, Card
 } from 'antd'
 import {
-    FileTextOutlined, ArrowLeftOutlined, HomeOutlined
+    FileTextOutlined, ArrowLeftOutlined
 } from '@ant-design/icons'
-import api, {
+import {
     splitApi, auditApi,
     DocumentInfo, Segment, Issue, AuditResults
 } from '../services/api'
@@ -18,7 +18,6 @@ const { Text, Title } = Typography
 
 export default function AuditReviewPage() {
     const { docId } = useParams<{ docId: string }>()
-    const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
     const [auditing, setAuditing] = useState(false)

@@ -2,8 +2,8 @@
 API路由 - 画布服务
 """
 from typing import List, Dict
-from fastapi import APIRouter, HTTPException, Body
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
 
 from services.canvas import CanvasService
 
@@ -27,6 +27,11 @@ class SaveSlicesRequest(BaseModel):
     canvas_id: str
     group_name: str
     blocks: List[Dict]
+
+class SaveDraftRequest(BaseModel):
+    group_name: str = ""
+    cut_lines: List[Dict] = Field(default_factory=list)
+    blocks: List[Dict] = Field(default_factory=list)
 
 @router.post("/save_slices")
 async def save_slices(request: SaveSlicesRequest):
@@ -55,6 +60,43 @@ async def stitch_documents(request: StitchRequest):
             trim_bottom=request.trim_bottom
         )
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/list")
+async def list_canvases():
+    try:
+        return canvas_service.list_canvases()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.put("/{canvas_id}/draft")
+async def save_canvas_draft(canvas_id: str, request: SaveDraftRequest):
+    try:
+        return canvas_service.save_canvas_draft(
+            canvas_id=canvas_id,
+            group_name=request.group_name,
+            cut_lines=request.cut_lines,
+            blocks=request.blocks
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/{canvas_id}")
+async def get_canvas(canvas_id: str):
+    try:
+        return canvas_service.get_canvas(canvas_id)
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.delete("/{canvas_id}")
+async def delete_canvas(canvas_id: str):
+    try:
+        return canvas_service.delete_canvas(canvas_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

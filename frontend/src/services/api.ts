@@ -167,6 +167,9 @@ export interface CanvasStitchResult {
     canvas_id: string;
     total_width: number;
     total_height: number;
+    group_name?: string;
+    cut_lines?: CanvasDraftLine[];
+    blocks?: CanvasDraftBlock[];
     pages: Array<{
         doc_id: string;
         original_path: string;
@@ -192,6 +195,33 @@ export interface CanvasCropResult {
     label: string;
 }
 
+export interface CanvasDraftLine {
+    id: string;
+    points: { x: number; y: number }[];
+}
+
+export interface CanvasDraftBlock {
+    id?: string;
+    y_start?: number;
+    y_end?: number;
+    y?: number;
+    h?: number;
+    type: 'knowledge' | 'example' | 'answer' | string;
+    label: string;
+    polygon?: { x: number; y: number }[];
+}
+
+export interface CanvasHistoryItem {
+    canvas_id: string;
+    doc_ids: string[];
+    trim_top: number;
+    trim_bottom: number;
+    status: 'stitched' | 'completed' | string;
+    group_name?: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export const canvasApi = {
     async stitch(docIds: string[], trimTop: number = 0.12, trimBottom: number = 0.10): Promise<CanvasStitchResult> {
         const response = await api.post<CanvasStitchResult>('/canvas/stitch', {
@@ -210,12 +240,31 @@ export const canvasApi = {
         return response.data;
     },
 
-    async saveSlices(canvasId: string, groupName: string, blocks: { y: number, h: number, label: string, type: string }[]): Promise<any> {
+    async saveSlices(canvasId: string, groupName: string, blocks: { polygon: { x: number; y: number }[], label: string, type: string }[]): Promise<any> {
         const response = await api.post('/canvas/save_slices', {
             canvas_id: canvasId,
             group_name: groupName,
             blocks
         });
+        return response.data;
+    },
+
+    async saveDraft(canvasId: string, payload: { group_name: string, cut_lines: CanvasDraftLine[], blocks: CanvasDraftBlock[] }): Promise<void> {
+        await api.put(`/canvas/${canvasId}/draft`, payload);
+    },
+
+    async list(): Promise<CanvasHistoryItem[]> {
+        const response = await api.get<CanvasHistoryItem[]>('/canvas/list');
+        return response.data;
+    },
+
+    async get(canvasId: string): Promise<CanvasStitchResult> {
+        const response = await api.get<CanvasStitchResult>(`/canvas/${canvasId}`);
+        return response.data;
+    },
+
+    async deleteCanvas(canvasId: string): Promise<{ canvas_id: string; deleted_count: number }> {
+        const response = await api.delete<{ canvas_id: string; deleted_count: number }>(`/canvas/${canvasId}`);
         return response.data;
     }
 };
@@ -237,6 +286,10 @@ export const groupApi = {
 
     async deleteSlice(groupName: string, filename: string) {
         return api.post('/group/delete_slice', { group_name: groupName, filename });
+    },
+
+    async deleteGroup(groupName: string) {
+        return api.post('/group/delete_group', { group_name: groupName });
     }
 };
 

@@ -74,7 +74,7 @@ async def list_documents():
     """
     获取所有文档列表
     """
-    docs = doc_store.load_documents()
+    docs = doc_store.load_documents(hydrate=True)
     return [DocumentInfo(**d) for d in docs]
 
 @router.delete("/{doc_id}")
